@@ -1,5 +1,4 @@
 const notesService = require('app/modules/notes')
-const mongoose = require('mongoose')
 
 /**
  * @method read
