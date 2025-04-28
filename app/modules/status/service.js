@@ -10,6 +10,10 @@ class StatusService {
     return HealthStatusCodes;
   }
 
+  /*
+    Get report of all services the API depends on. Theoretically could have separate statuses per service
+    (i.e. DB: OK, someOtherMicroservice: ERROR)
+  */
   getStatusReport() {
     let overallStatus = HealthStatusCodes.OK;
 
