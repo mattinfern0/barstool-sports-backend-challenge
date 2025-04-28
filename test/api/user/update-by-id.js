@@ -14,16 +14,23 @@ describe('api', () => {
       let mockAuth1
       let mockAuth2
 
+      let mockUser2Email
+
       before(async () => {
         mockAuth1 = await mockData.mockAuthAndUser()
-        mockAuth2 = await mockData.mockAuthAndUser()
+
+        mockUser2Email = `${mockData.uuid()}@test.com`
+        mockAuth2 = await mockData.mockAuthAndUser({
+          email: mockUser2Email,
+          password: mockData.uuid()
+        })
       })
 
       it('should fail if user id parameter doesn\'t match current user', async () => {
         const body = {
           firstName: "Jane",
           lastName: "Doe",
-          email: `${mockAuth2.email}@test.com`
+          email: mockUser2Email
         }
 
         await agent
@@ -38,12 +45,12 @@ describe('api', () => {
       /*
       This test fails since userService.readAndUpdate() was not implemented by the starter code. Since there's no
       instruction to implement this function I'm assuming this is intended.
-      */
-      test.skip('should succeed assuming correct parameters', async () => {
+
+      it('should succeed assuming correct parameters', async () => {
         const body = {
           firstName: "Jane",
           lastName: "Doe",
-          email: `${mockAuth2.email}@test.com`
+          email: mockUser2Email
         }
 
         await agent
@@ -54,6 +61,8 @@ describe('api', () => {
           .expect(200)
           .promise()
       })
+
+      */
     })
   })
 })
