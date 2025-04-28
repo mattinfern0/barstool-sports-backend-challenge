@@ -3,7 +3,10 @@ const { body } = validate
 
 class UserValidator extends Validator {
   async create(req) {
-    const validations = []
+    const validations = [
+      body('title'),
+      body('message'),
+    ]
     await this.validate(req, validations, { sanitize: 'query' })
   }
 }
