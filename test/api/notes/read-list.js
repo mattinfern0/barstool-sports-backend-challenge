@@ -37,25 +37,27 @@ describe('api', () => {
       })
 
       it('should return all notes belonging to the current user', async() => {
-        notesService.create({
-          title: "Test Note 1",
-          message: "Hello world!",
-          userId: mockAuth2.user
-        })
+        const currentUserNotes = [
+          await notesService.create({
+            title: "Test Note 1",
+            message: "Hello world!",
+            userId: mockAuth2.user
+          }),
 
-        notesService.create({
-          title: "Test Note 2",
-          message: "Some sample text",
-          userId: mockAuth2.user
-        })
+          await notesService.create({
+            title: "Test Note 2",
+            message: "Some sample text",
+            userId: mockAuth2.user
+          }),
 
-        notesService.create({
-          title: "Test Note 3",
-          message: "Lorem ipsum",
-          userId: mockAuth2.user
-        })
+          await notesService.create({
+            title: "Test Note 3",
+            message: "Lorem ipsum",
+            userId: mockAuth2.user
+          }),
+        ];
 
-        notesService.create({
+        const otherNote = await notesService.create({
           title: "Other User's Note",
           message: "Lorem",
           userId: mockAuth1.user
@@ -69,6 +71,17 @@ describe('api', () => {
           .promise()
 
         response.length.should.equal(3);
+
+        currentUserNotes.forEach((note) => {
+          const responseNote = response.find(record => record.id === note.id);
+          should.exist(responseNote);
+          responseNote.title.should.equal(note.title)
+          responseNote.message.should.equal(note.message)
+        })
+
+        should.not.exist(response.find(record => record.id === otherNote.id))
+
+
       })
     })
   })

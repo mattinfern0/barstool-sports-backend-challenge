@@ -25,7 +25,7 @@ describe('api', () => {
         return agent.client().post(`/note`).expect(401).promise()
       })
 
-      it('should work', async () => {
+      it('should create a note for a logged in user', async () => {
         const body = {
           title: "Some title",
           message: "This is a test! Will it work?"
