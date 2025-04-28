@@ -1,6 +1,5 @@
 const { Model } = require('app/modules/common')
 require('mongoose')
-const mongoose = require('mongoose')
 
 class NoteModel extends Model {
   // Assuming title and message can be empty strings
@@ -17,8 +16,9 @@ class NoteModel extends Model {
         required: true
       },
       userId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        ref: 'User',
+        required: true
       }
     }
   }
