@@ -42,10 +42,6 @@ describe('api', () => {
           .promise()
       })
 
-      /*
-      This test fails since userService.readAndUpdate() was not implemented by the starter code. Since there's no
-      instruction to implement this function I'm assuming this is intended.
-
       it('should succeed assuming correct parameters', async () => {
         const body = {
           firstName: "Jane",
@@ -53,16 +49,20 @@ describe('api', () => {
           email: mockUser2Email
         }
 
-        await agent
+        const response = await agent
           .client()
           .put(`/user/${mockAuth2.user}`)
           .send(body)
           .set('authorization', mockAuth2.token)
           .expect(200)
           .promise()
+
+        response.firstName.should.equal(body.firstName);
+        response.lastName.should.equal(body.lastName)
+        response.email.should.equal(body.email)
       })
 
-      */
+
     })
   })
 })
